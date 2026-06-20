@@ -220,6 +220,8 @@
       animation: fadeUp 0.8s 0.8s forwards;
     }
     .btn-primary {
+      border: 0;
+      cursor: pointer;
       background: var(--red);
       color: #fff;
       padding: 0.85rem 2rem;
@@ -233,6 +235,8 @@
     }
     .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
     .btn-outline {
+      background: transparent;
+      cursor: pointer;
       border: 1.5px solid rgba(255,255,255,0.55);
       color: #fff;
       padding: 0.85rem 2rem;
@@ -568,6 +572,8 @@
     .footer-bottom p { font-size: 0.78rem; color: var(--muted); }
     .footer-bottom a { color: var(--muted); text-decoration: none; margin-left: 1.2rem; transition: color 0.2s; }
     .footer-bottom a:hover { color: var(--text); }
+    .design-credit { font-size: 0.72rem !important; letter-spacing: 0.06em; }
+    .design-credit span { color: var(--gold); font-weight: 600; }
 
     /* ── SCROLL ANIMATIONS ── */
     .reveal {
@@ -603,6 +609,203 @@
       .hero-btns { flex-direction: column; align-items: center; }
       .call-number { font-size: 1.05rem; padding: 1rem 2rem; }
     }
+
+
+    /* ── FULL MENU MODAL ── */
+    body.menu-open-body { overflow: hidden; }
+    .menu-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 250;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 1.2rem 1.2rem;
+      background:
+        radial-gradient(circle at 18% 10%, rgba(212,150,10,0.18), transparent 26rem),
+        radial-gradient(circle at 85% 80%, rgba(192,57,43,0.16), transparent 28rem),
+        rgba(3,3,3,0.86);
+      backdrop-filter: blur(14px);
+    }
+    .menu-modal.open { display: flex; }
+    .menu-panel {
+      width: min(1140px, 100%);
+      max-height: 88vh;
+      overflow: auto;
+      color: #f5ead5;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.04), transparent 22%),
+        radial-gradient(circle at top right, rgba(23,112,92,0.24), transparent 25rem),
+        linear-gradient(145deg, #100b08 0%, #19100b 48%, #090807 100%);
+      border: 1px solid rgba(212,150,10,0.42);
+      box-shadow: 0 35px 110px rgba(0,0,0,0.72), inset 0 0 0 1px rgba(255,255,255,0.04);
+      border-radius: 24px;
+      position: relative;
+    }
+    .menu-panel::before {
+      content: '';
+      position: absolute;
+      inset: 14px;
+      border: 1px solid rgba(212,150,10,0.22);
+      border-radius: 18px;
+      pointer-events: none;
+    }
+    .menu-panel::after {
+      content: '✦';
+      position: absolute;
+      top: 1.2rem;
+      left: 1.4rem;
+      color: rgba(212,150,10,0.45);
+      font-size: 1.2rem;
+    }
+    .menu-close {
+      position: sticky;
+      top: 1rem;
+      float: right;
+      z-index: 3;
+      margin: 1rem 1.2rem 0 0;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(212,150,10,0.32);
+      border-radius: 50%;
+      background: rgba(9,8,7,0.82);
+      color: var(--gold);
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+      transition: transform 0.2s, background 0.2s;
+    }
+    .menu-close:hover { transform: rotate(90deg); background: var(--red); color: #fff; }
+    .menu-inner { padding: 3.8rem clamp(1.4rem, 5vw, 5.2rem) 3.2rem; position: relative; }
+    .menu-inner::before, .menu-inner::after {
+      content: '';
+      display: block;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--red), var(--gold), #2b8b78);
+      opacity: 0.88;
+    }
+    .menu-inner::after { margin-top: 2rem; }
+    .menu-kicker {
+      text-align: center;
+      color: var(--gold);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      font-size: 0.72rem;
+      margin-top: 2rem;
+    }
+    .menu-main-title {
+      text-align: center;
+      font-size: clamp(2.2rem, 5vw, 4.15rem);
+      color: #fff9ee;
+      line-height: 1.03;
+      margin: 0.65rem 0 0.75rem;
+      text-shadow: 0 18px 40px rgba(0,0,0,0.45);
+    }
+    .menu-main-title span { color: var(--gold); font-style: italic; }
+    .menu-intro {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 2.1rem;
+      color: rgba(232,223,208,0.74);
+      line-height: 1.75;
+    }
+    .menu-tabs { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+    .menu-tab {
+      border: 1px solid rgba(212,150,10,0.38);
+      background: rgba(255,255,255,0.045);
+      color: #f4ddaa;
+      padding: 0.85rem 1.35rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+      transition: transform 0.2s, background 0.2s, color 0.2s;
+    }
+    .menu-tab:hover { transform: translateY(-2px); background: rgba(212,150,10,0.12); }
+    .menu-tab.active { background: linear-gradient(135deg, var(--red), var(--red-dark)); color: #fff; border-color: rgba(255,255,255,0.16); }
+    .menu-page { display: none; }
+    .menu-page.active { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.05rem; align-items: start; }
+    .menu-section-card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.035)),
+        rgba(16,13,10,0.74);
+      border: 1px solid rgba(212,150,10,0.22);
+      border-radius: 18px;
+      padding: 1.15rem 1.15rem 0.65rem;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.24);
+      overflow: hidden;
+      position: relative;
+    }
+    .menu-section-card::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red), var(--gold), #2b8b78);
+      opacity: 0.9;
+    }
+    .menu-section-card h3 {
+      color: #f0c15d;
+      font-size: 1.25rem;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+    .menu-section-card h3.red { color: #ff8a77; }
+    .dish-row {
+      display: grid;
+      grid-template-columns: minmax(130px, 1.1fr) minmax(170px, 1.7fr) auto;
+      gap: 0.85rem;
+      padding: 0.68rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      align-items: start;
+    }
+    .dish-row:last-child { border-bottom: 0; }
+    .dish-name { font-weight: 800; color: #fff4df; }
+    .dish-desc { color: rgba(232,223,208,0.66); line-height: 1.45; font-size: 0.91rem; }
+    .dish-price {
+      font-weight: 900;
+      color: #ffd37a;
+      white-space: nowrap;
+      background: rgba(212,150,10,0.09);
+      border: 1px solid rgba(212,150,10,0.18);
+      padding: 0.22rem 0.45rem;
+      border-radius: 999px;
+    }
+    .menu-note {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, rgba(212,150,10,0.95), rgba(255,208,90,0.9));
+      border: 1px solid rgba(255,255,255,0.22);
+      color: #271407;
+      padding: 1rem 1.2rem;
+      border-radius: 16px;
+      text-align: center;
+      font-weight: 900;
+      margin: 0.1rem 0;
+      box-shadow: 0 14px 32px rgba(212,150,10,0.16);
+    }
+    .origin-note {
+      grid-column: 1 / -1;
+      font-size: 0.78rem;
+      color: rgba(232,223,208,0.62);
+      margin-top: 1.1rem;
+      line-height: 1.6;
+      text-align: center;
+    }
+    @media (max-width: 900px) {
+      .menu-page.active { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 700px) {
+      .menu-panel { border-radius: 18px; }
+      .dish-row { grid-template-columns: 1fr auto; gap: 0.4rem 0.8rem; }
+      .dish-desc { grid-column: 1 / -1; }
+      .menu-inner { padding-left: 1.3rem; padding-right: 1.3rem; }
+    }
+
   </style>
 </head>
 <body>
@@ -626,12 +829,105 @@
   <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
     <button class="close-btn" id="closeMenu">✕</button>
-    <a href="#menu" class="mobile-link">Speisekarte</a>
+    <button type="button" class="mobile-link menu-open-trigger" style="background:none;border:0;cursor:pointer">Speisekarte</button>
     <a href="#about" class="mobile-link">Über uns</a>
     <a href="#experience" class="mobile-link">Erlebnis</a>
     <a href="#reservierung" class="mobile-link">Reservierung</a>
     <a href="tel:+41448100960" class="mobile-link" style="color:var(--gold)">📞 +41 44 810 09 60</a>
   </div>
+
+
+
+  <!-- SPEISEKARTE MODAL -->
+  <div class="menu-modal" id="fullMenuModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="menuModalTitle">
+    <div class="menu-panel">
+      <button class="menu-close" id="menuClose" aria-label="Speisekarte schliessen">×</button>
+      <div class="menu-inner">
+        <p class="menu-kicker">Casa Alegria Opfikon</p>
+        <h2 class="menu-main-title" id="menuModalTitle">Speisekarte <span>& Fiesta Flavours</span></h2>
+        <p class="menu-intro">Unsere digitale Speisekarte – modern, elegant und inspiriert von mexikanischen Farben. Preise in CHF, inklusive Mehrwertsteuer. Bei Allergien oder Unverträglichkeiten bitte unser Team informieren.</p>
+        <div class="menu-tabs" role="tablist" aria-label="Speisekarte Kategorien">
+          <button class="menu-tab active" data-menu-tab="abendkarte" role="tab" aria-selected="true">Abendkarte</button>
+          <button class="menu-tab" data-menu-tab="fiesta" role="tab" aria-selected="false">Alegria Fiesta Flavours</button>
+        </div>
+
+        <div class="menu-page active" id="abendkarte">
+          <div class="menu-section-card"><h3>🥣 Sopas · Suppen</h3>
+            <div class="dish-row"><div class="dish-name">Chicken Coconut Soup</div><div class="dish-desc">mit Poulet und Gemüse</div><div class="dish-price">Fr. 11.00</div></div>
+            <div class="dish-row"><div class="dish-name">Bouillon</div><div class="dish-desc">mit Ei oder Gemüse</div><div class="dish-price">Fr. 8.00</div></div>
+          </div>
+          <div class="menu-section-card"><h3>🥗 Ensaladas · Salate</h3>
+            <div class="dish-row"><div class="dish-name">Gemischter Salat</div><div class="dish-desc">Mixed salad</div><div class="dish-price">Fr. 10.00</div></div>
+            <div class="dish-row"><div class="dish-name">Grüner Salat</div><div class="dish-desc">mit Maiskörnern</div><div class="dish-price">Fr. 9.00</div></div>
+            <div class="dish-row"><div class="dish-name">Cäsar-Salat</div><div class="dish-desc">klein / gross – mit Parmesan, Speck und Croutons</div><div class="dish-price">Fr. 11.00 / 18.00</div></div>
+            <div class="dish-row"><div class="dish-name">Nüsslisalat</div><div class="dish-desc">mit Ei / mit Ei und Speck</div><div class="dish-price">Fr. 11.00 / 14.00</div></div>
+          </div>
+          <div class="menu-section-card"><h3>🫓 Entradas · Vorspeisen</h3>
+            <div class="dish-row"><div class="dish-name">Guacamole con Nachos</div><div class="dish-desc">serviert mit 3 verschiedenen Saucen</div><div class="dish-price">Fr. 11.00</div></div>
+            <div class="dish-row"><div class="dish-name">Chimichanga</div><div class="dish-desc">Tortillachips überbacken mit Cheddar-Käse</div><div class="dish-price">Fr. 13.00</div></div>
+            <div class="dish-row"><div class="dish-name">Papaasada con Guacamole</div><div class="dish-desc">Grillkartoffeln mit Guacamole</div><div class="dish-price">Fr. 12.00</div></div>
+            <div class="dish-row"><div class="dish-name">Quesadillas</div><div class="dish-desc">Weizentortillas gefüllt mit Cheddar-Käse</div><div class="dish-price">Fr. 9.00</div></div>
+            <div class="dish-row"><div class="dish-name">Jalapeños / Dedos de Mozzarella / Calamares</div><div class="dish-desc">klein / gross, serviert mit Salsa und Salat</div><div class="dish-price">Fr. 12.00 / 22.00</div></div>
+          </div>
+          <div class="menu-note">Haus-Drink “Margherita” – 0,5 lt. Fr. 28.50 · 1 lt. Fr. 49.50 · Glas 2 dl Fr. 14.50</div>
+          <div class="menu-section-card"><h3>🌮 Tacos</h3>
+            <div class="dish-row"><div class="dish-name">Taco con pollo</div><div class="dish-desc">knusprig frittierte Maistortillas mit Poulet, Reis, Salat, Guacamole, Salsa und Sauerrahm</div><div class="dish-price">Fr. 31.00</div></div>
+            <div class="dish-row"><div class="dish-name">Taco con res</div><div class="dish-desc">mit Rindfiletstreifen</div><div class="dish-price">Fr. 35.00</div></div>
+            <div class="dish-row"><div class="dish-name">Taco con verdura</div><div class="dish-desc">mit verschiedenen Gemüse</div><div class="dish-price">Fr. 28.00</div></div>
+          </div>
+          <div class="menu-section-card"><h3>🧀 Quesadillas</h3>
+            <div class="dish-row"><div class="dish-name">Quesadilla con pollo</div><div class="dish-desc">grosse Weizentortilla gefüllt mit Cheddar, Reis, Salat, Guacamole, Salsa, Sour Cream</div><div class="dish-price">Fr. 32.00</div></div>
+            <div class="dish-row"><div class="dish-name">Quesadilla con res</div><div class="dish-desc">mit Rindfiletstreifen</div><div class="dish-price">Fr. 36.00</div></div>
+            <div class="dish-row"><div class="dish-name">Quesadilla verdura</div><div class="dish-desc">mit Gemüse</div><div class="dish-price">Fr. 28.00</div></div>
+            <div class="dish-row"><div class="dish-name">Quesadilla con cordero</div><div class="dish-desc">mit Lamm</div><div class="dish-price">Fr. 32.00</div></div>
+          </div>
+          <div class="menu-section-card"><h3>🌶️ Enchilada</h3>
+            <div class="dish-row"><div class="dish-name">Enchilada con pollo</div><div class="dish-desc">gefüllt und mit Cheddar überbacken, serviert mit Reis und Salat</div><div class="dish-price">Fr. 32.00</div></div>
+            <div class="dish-row"><div class="dish-name">Enchilada con res</div><div class="dish-desc">mit Rindfiletstreifen</div><div class="dish-price">Fr. 36.00</div></div>
+            <div class="dish-row"><div class="dish-name">Enchilada con cordero</div><div class="dish-desc">mit Lamm</div><div class="dish-price">Fr. 32.00</div></div>
+            <div class="dish-row"><div class="dish-name">Enchilada Alegria</div><div class="dish-desc">mit Poulet und Rind</div><div class="dish-price">Fr. 36.00</div></div>
+          </div>
+          <div class="menu-section-card"><h3 class="red">🔥 Fajitas, Pinchos & Spezialitäten</h3>
+            <div class="dish-row"><div class="dish-name">Sabana con pollo / con res</div><div class="dish-desc">zarte Filets mit Cheddar-Käse überbacken, dazu Grillkartoffeln und Sauerrahm</div><div class="dish-price">Fr. 33.00 / 45.00</div></div>
+            <div class="dish-row"><div class="dish-name">Fajita con pollo</div><div class="dish-desc">weiche Weizentortillas mit Reis, Salat, Guacamole, Salsa und Sour Cream</div><div class="dish-price">Fr. 33.00</div></div>
+            <div class="dish-row"><div class="dish-name">Fajita alegria / con res</div><div class="dish-desc">mit Poulet und Rind / mit Rindfleisch</div><div class="dish-price">Fr. 38.00</div></div>
+            <div class="dish-row"><div class="dish-name">Fajita con cordero / camarones</div><div class="dish-desc">mit Lammhuftstreifen / mit Crevetten</div><div class="dish-price">Fr. 35.00</div></div>
+            <div class="dish-row"><div class="dish-name">Fajita con verdura</div><div class="dish-desc">mit verschiedenem Gemüse</div><div class="dish-price">Fr. 30.00</div></div>
+            <div class="dish-row"><div class="dish-name">Alegria Spiess</div><div class="dish-desc">Chef Special: Poulet und Rind mit Pommes frites und Salat</div><div class="dish-price">Fr. 42.00</div></div>
+          </div>
+          <div class="menu-section-card"><h3>🐟 Pescado & Especialidades</h3>
+            <div class="dish-row"><div class="dish-name">Fischplatte vom Grill</div><div class="dish-desc">mit Reis und Gemüse</div><div class="dish-price">Fr. 43.00</div></div>
+            <div class="dish-row"><div class="dish-name">Riesencrevetten vom Grill</div><div class="dish-desc">mit Knoblauch, Reis, Gemüse und Cocktailsauce</div><div class="dish-price">Fr. 43.00</div></div>
+            <div class="dish-row"><div class="dish-name">Platouno / Platodos / Plato tres</div><div class="dish-desc">Teller-Spezialitäten mit Tacos, Quesadilla, Reis, Salat, Salsa, Guacamole und Sour Cream</div><div class="dish-price">Fr. 29.00 / 37.00 / 42.00</div></div>
+          </div>
+        </div>
+
+        <div class="menu-page" id="fiesta">
+          <div class="menu-section-card"><h3 class="red">🎉 Alegria Fiesta Flavours</h3>
+            <div class="dish-row"><div class="dish-name">Indische Samosas</div><div class="dish-desc">gefüllt mit Gemüse, dazu Reis und Salat</div><div class="dish-price">Fr. 22.00</div></div>
+            <div class="dish-row"><div class="dish-name">Frittierte Pouletflügel (6 Stk.)</div><div class="dish-desc">serviert mit Pommes, Salat und Tartarsauce</div><div class="dish-price">Fr. 24.00</div></div>
+            <div class="dish-row"><div class="dish-name">Chilli con Carne</div><div class="dish-desc">serviert mit Tortilla-Chips und Hausreis</div><div class="dish-price">Fr. 26.00</div></div>
+            <div class="dish-row"><div class="dish-name">Burrito con Carne</div><div class="dish-desc">serviert mit Reis und Salat</div><div class="dish-price">Fr. 26.00</div></div>
+            <div class="dish-row"><div class="dish-name">Mexikanischer Hamburger</div><div class="dish-desc">200 g, mit Pommes und Salat</div><div class="dish-price">Fr. 24.00</div></div>
+            <div class="dish-row"><div class="dish-name">Pasta Chilli</div><div class="dish-desc">Teigwaren in Rahm mit Chilli und Brokkoli</div><div class="dish-price">Fr. 27.00</div></div>
+            <div class="dish-row"><div class="dish-name">Pasta Chilli mit Pouletgeschnetzeltem</div><div class="dish-desc">cremig, würzig und hausgemacht</div><div class="dish-price">Fr. 31.00</div></div>
+            <div class="dish-row"><div class="dish-name">Fitnessteller</div><div class="dish-desc">gegrilltes Pouletbrustfilet (CH) auf Blattsalat</div><div class="dish-price">Fr. 29.00</div></div>
+            <div class="dish-row"><div class="dish-name">Alegriasalat</div><div class="dish-desc">zartes Pouletgeschnetzeltes auf Caesar-Salat</div><div class="dish-price">Fr. 29.00</div></div>
+            <div class="dish-row"><div class="dish-name">Gegrilltes Pouletbrustfilet</div><div class="dish-desc">(CH) mit Kräuterbutter und Nudeln</div><div class="dish-price">Fr. 31.00</div></div>
+            <div class="dish-row"><div class="dish-name">Pouletgeschnetzeltes</div><div class="dish-desc">in Pilzrahmsauce, serviert mit Nudeln</div><div class="dish-price">Fr. 29.00</div></div>
+            <div class="dish-row"><div class="dish-name">Gemüse Curry</div><div class="dish-desc">mit Basmatireis</div><div class="dish-price">Fr. 26.00</div></div>
+            <div class="dish-row"><div class="dish-name">Poulet / Lamm / Rind Curry</div><div class="dish-desc">mit Basmatireis</div><div class="dish-price">Fr. 29.00 / 31.00 / 33.00</div></div>
+            <div class="dish-row"><div class="dish-name">Crevetten Curry</div><div class="dish-desc">mit Basmatireis</div><div class="dish-price">Fr. 29.00</div></div>
+            <div class="dish-row"><div class="dish-name">Gegrilltes Lammhuftfilet</div><div class="dish-desc">mit Kräuterbutter, Pommes und Salat</div><div class="dish-price">Fr. 36.00</div></div>
+            <div class="dish-row"><div class="dish-name">Rindsgeschnetzeltes</div><div class="dish-desc">in Pilzrahmsauce, dazu Nudeln</div><div class="dish-price">Fr. 38.00</div></div>
+            <div class="dish-row"><div class="dish-name">Rindsfiletmedaillons</div><div class="dish-desc">mit Nudeln und Gemüse: 2x100 g / 3x100 g / 5x100 g</div><div class="dish-price">Fr. 45.00 / 58.00 / 85.00</div></div>
+          </div>
+        </div>
+        <p class="origin-note"><strong>Fleischherkunft:</strong> Kalb: Schweiz · Lamm: Irland, Neuseeland · Poulet: Schweiz, Brasilien · Rind: Irland, Australien · Schwein: Schweiz.</p>
+      </div>
+    </div>
+  </div>
+
 
   <!-- HERO -->
   <section id="hero">
@@ -643,7 +939,7 @@
       <p class="hero-sub">Frische Zutaten. Lebendige Aromen. Herzlicher Service — seit Jahren.</p>
       <div class="hero-btns">
         <a href="#reservierung" class="btn-primary">Tisch reservieren</a>
-        <a href="#menu" class="btn-outline">Speisekarte entdecken</a>
+        <button type="button" class="btn-outline menu-open-trigger">Speisekarte entdecken</button>
       </div>
     </div>
   </section>
@@ -734,7 +1030,7 @@
       </div>
     </div>
     <div class="menu-cta-wrap reveal">
-      <a href="tel:+41448100960" class="btn-primary">Für Speisekarte anrufen</a>
+      <button type="button" class="btn-primary menu-open-trigger">Ganze Speisekarte ansehen</button>
     </div>
   </section>
 
@@ -842,10 +1138,7 @@
     </div>
     <div class="footer-bottom">
       <p>© 2025 Casa Alegria, Opfikon. Alle Rechte vorbehalten.</p>
-      <div>
-        <a href="#">Impressum</a>
-        <a href="#">Datenschutz</a>
-      </div>
+      <p class="design-credit">Designed by <span>VelaroStudio</span></p>
     </div>
   </footer>
 
@@ -877,6 +1170,44 @@
       });
     }, { threshold: 0.1 });
     reveals.forEach(el => observer.observe(el));
+
+
+    // Full menu modal
+    const fullMenuModal = document.getElementById('fullMenuModal');
+    const menuClose = document.getElementById('menuClose');
+    const menuOpenTriggers = document.querySelectorAll('.menu-open-trigger');
+    const menuTabs = document.querySelectorAll('.menu-tab');
+    const menuPages = document.querySelectorAll('.menu-page');
+
+    function openFullMenu() {
+      fullMenuModal.classList.add('open');
+      fullMenuModal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('menu-open-body');
+      mobileMenu.classList.remove('open');
+    }
+    function closeFullMenu() {
+      fullMenuModal.classList.remove('open');
+      fullMenuModal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('menu-open-body');
+    }
+    menuOpenTriggers.forEach(btn => btn.addEventListener('click', openFullMenu));
+    menuClose.addEventListener('click', closeFullMenu);
+    fullMenuModal.addEventListener('click', (e) => {
+      if (e.target === fullMenuModal) closeFullMenu();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && fullMenuModal.classList.contains('open')) closeFullMenu();
+    });
+    menuTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.menuTab;
+        menuTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        menuPages.forEach(page => page.classList.toggle('active', page.id === target));
+      });
+    });
+
   </script>
 </body>
 </html>
