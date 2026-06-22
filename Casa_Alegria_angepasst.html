@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casa Alegria – Mexikanisches Restaurant Opfikon</title>
+  <meta name="description" content="Casa Alegria – Authentische mexikanische Küche in Opfikon, Zürich. Tacos, Enchiladas, Carne Asada. Jetzt telefonisch reservieren." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:     #C0392B;
+      --red-dark:#9B2335;
+      --gold:    #D4960A;
+      --dark:    #111111;
+      --dark2:   #1C1C1C;
+      --dark3:   #252525;
+      --cream:   #FAF3E0;
+      --cream2:  #F2E8CF;
+      --text:    #E8DFD0;
+      --muted:   #9A8F82;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .logo {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 5vw;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s, backdrop-filter 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(10,10,10,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .logo {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+    .logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.78);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #fff; }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--red);
+      color: #fff;
+      padding: 0.55rem 1.3rem;
+      border-radius: 2px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--red-dark); }
+
+    /* hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+      transition: all 0.3s;
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,10,10,0.97);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--gold); }
+    .mobile-menu .close-btn {
+      position: absolute;
+      top: 1.5rem; right: 5vw;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=1800&q=85');
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.04);
+      transition: transform 8s ease;
+    }
+    #hero:hover .hero-bg { transform: scale(1.0); }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+        rgba(0,0,0,0.35) 0%,
+        rgba(0,0,0,0.62) 50%,
+        rgba(0,0,0,0.80) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 0 1.5rem;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+    .hero-content h1 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: #fff;
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s forwards;
+    }
+    .hero-content h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.78);
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      margin-bottom: 2.4rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s forwards;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.8s forwards;
+    }
+    .btn-primary {
+      border: 0;
+      cursor: pointer;
+      background: var(--red);
+      color: #fff;
+      padding: 0.85rem 2rem;
+      border-radius: 2px;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      cursor: pointer;
+      border: 1.5px solid rgba(255,255,255,0.55);
+      color: #fff;
+      padding: 0.85rem 2rem;
+      border-radius: 2px;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .btn-outline:hover { border-color: #fff; transform: translateY(-2px); }
+
+    /* ── HIGHLIGHTS BAR ── */
+    #highlights {
+      background: var(--dark2);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 1.4rem 5vw;
+    }
+    .highlights-grid {
+      display: flex;
+      justify-content: center;
+      gap: clamp(1.5rem, 4vw, 4rem);
+      flex-wrap: wrap;
+    }
+    .highlight-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .highlight-item .icon { font-size: 1.1rem; }
+    .highlight-item strong { color: var(--text); }
+
+    /* ── SECTION BASE ── */
+    section { padding: 6rem 5vw; }
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: #fff;
+      margin-bottom: 1.2rem;
+    }
+    .section-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 540px;
+      line-height: 1.7;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--dark);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .about-img {
+      position: relative;
+      border-radius: 2px;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+    }
+    .about-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .about-img:hover img { transform: scale(1.04); }
+    .about-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(212,150,10,0.25);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+    .about-text { }
+    .about-text p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      font-size: 0.975rem;
+    }
+    .rating-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: var(--dark3);
+      border: 1px solid rgba(212,150,10,0.3);
+      padding: 0.7rem 1.2rem;
+      border-radius: 2px;
+      margin-top: 0.5rem;
+    }
+    .rating-badge .stars { color: var(--gold); letter-spacing: 0.05em; }
+    .rating-badge span { font-size: 0.82rem; color: var(--muted); }
+
+    /* ── MENU ── */
+    #menu { background: var(--dark2); }
+    .menu-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+    .menu-header .section-sub { margin: 0 auto; }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      max-width: 1100px;
+      margin: 0 auto 3rem;
+      background: rgba(255,255,255,0.04);
+    }
+    .menu-card {
+      background: var(--dark);
+      overflow: hidden;
+      position: relative;
+      cursor: default;
+    }
+    .menu-card-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease, filter 0.5s;
+      filter: brightness(0.88) saturate(1.1);
+    }
+    .menu-card:hover .menu-card-img {
+      transform: scale(1.06);
+      filter: brightness(0.7) saturate(1.2);
+    }
+    .menu-card-body {
+      padding: 1.3rem 1.4rem 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .menu-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.4rem;
+    }
+    .menu-card-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .menu-cta-wrap { text-align: center; }
+
+    /* ── EXPERIENCE ── */
+    #experience {
+      background: var(--dark3);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .exp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+      max-width: 900px;
+      margin: 3rem auto 0;
+    }
+    .exp-item { text-align: center; }
+    .exp-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .exp-item h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: #fff;
+      margin-bottom: 0.6rem;
+    }
+    .exp-item p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── RESERVIERUNG ── */
+    #reservierung {
+      background: var(--cream);
+      text-align: center;
+    }
+    #reservierung .section-label { color: var(--red); }
+    #reservierung .section-title { color: var(--dark); }
+    #reservierung .section-sub { color: #5a4f44; margin: 0 auto 2.8rem; }
+    .call-block {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+    }
+    .call-number {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: var(--red);
+      color: #fff;
+      text-decoration: none;
+      padding: 1.1rem 2.8rem;
+      border-radius: 2px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.04em;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 4px 24px rgba(192,57,43,0.3);
+    }
+    .call-number:hover { background: var(--red-dark); transform: translateY(-3px); }
+    .call-number .phone-icon { font-size: 1.2rem; }
+    .call-note {
+      font-size: 0.85rem;
+      color: #7a6e63;
+      letter-spacing: 0.02em;
+    }
+    .call-group-note {
+      margin-top: 0.5rem;
+      font-size: 0.78rem;
+      color: #9a8e83;
+      font-style: italic;
+    }
+
+    /* ── REVIEWS ── */
+    #reviews { background: var(--dark); }
+    .reviews-header { text-align: center; margin-bottom: 3.5rem; }
+    .google-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: var(--dark3);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 1rem;
+    }
+    .google-badge .g-stars { color: var(--gold); }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .review-card {
+      background: var(--dark2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 2px;
+      padding: 2rem;
+      transition: border-color 0.3s;
+    }
+    .review-card:hover { border-color: rgba(212,150,10,0.3); }
+    .review-stars { color: var(--gold); margin-bottom: 1rem; font-size: 0.9rem; }
+    .review-text {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 1.2rem;
+    }
+    .review-author {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0a0a0a;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 4rem 5vw 2.5rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      max-width: 1100px;
+      margin: 0 auto 3rem;
+    }
+    .footer-brand .logo { font-size: 1.3rem; display: block; margin-bottom: 0.8rem; }
+    .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+    .footer-col h4 {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.6rem; }
+    .footer-col ul li a,
+    .footer-col ul li span {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--text); }
+    .footer-hours li { font-size: 0.82rem; }
+    .footer-hours .day { color: var(--text); font-weight: 500; display: block; }
+    .footer-hours .time { color: var(--muted); font-size: 0.78rem; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-bottom p { font-size: 0.78rem; color: var(--muted); }
+    .footer-bottom a { color: var(--muted); text-decoration: none; margin-left: 1.2rem; transition: color 0.2s; }
+    .footer-bottom a:hover { color: var(--text); }
+    .design-credit { font-size: 0.72rem !important; letter-spacing: 0.06em; }
+    .design-credit span { color: var(--gold); font-weight: 600; }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(20px); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-img { aspect-ratio: 16/9; }
+      .menu-grid { grid-template-columns: repeat(2, 1fr); }
+      .exp-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 4rem 1.3rem; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .hero-btns { flex-direction: column; align-items: center; }
+      .call-number { font-size: 1.05rem; padding: 1rem 2rem; }
+    }
+
+
+    /* ── FULL MENU MODAL ── */
+    body.menu-open-body { overflow: hidden; }
+    .menu-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 250;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 1.2rem 1.2rem;
+      background:
+        radial-gradient(circle at 18% 10%, rgba(212,150,10,0.18), transparent 26rem),
+        radial-gradient(circle at 85% 80%, rgba(192,57,43,0.16), transparent 28rem),
+        rgba(3,3,3,0.86);
+      backdrop-filter: blur(14px);
+    }
+    .menu-modal.open { display: flex; }
+    .menu-panel {
+      width: min(1140px, 100%);
+      max-height: 88vh;
+      overflow: auto;
+      color: #f5ead5;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.04), transparent 22%),
+        radial-gradient(circle at top right, rgba(23,112,92,0.24), transparent 25rem),
+        linear-gradient(145deg, #100b08 0%, #19100b 48%, #090807 100%);
+      border: 1px solid rgba(212,150,10,0.42);
+      box-shadow: 0 35px 110px rgba(0,0,0,0.72), inset 0 0 0 1px rgba(255,255,255,0.04);
+      border-radius: 24px;
+      position: relative;
+    }
+    .menu-panel::before {
+      content: '';
+      position: absolute;
+      inset: 14px;
+      border: 1px solid rgba(212,150,10,0.22);
+      border-radius: 18px;
+      pointer-events: none;
+    }
+    .menu-panel::after {
+      content: '✦';
+      position: absolute;
+      top: 1.2rem;
+      left: 1.4rem;
+      color: rgba(212,150,10,0.45);
+      font-size: 1.2rem;
+    }
+    .menu-close {
+      position: sticky;
+      top: 1rem;
+      float: right;
+      z-index: 3;
+      margin: 1rem 1.2rem 0 0;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(212,150,10,0.32);
+      border-radius: 50%;
+      background: rgba(9,8,7,0.82);
+      color: var(--gold);
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+      transition: transform 0.2s, background 0.2s;
+    }
+    .menu-close:hover { transform: rotate(90deg); background: var(--red); color: #fff; }
+    .menu-inner { padding: 3.8rem clamp(1.4rem, 5vw, 5.2rem) 3.2rem; position: relative; }
+    .menu-inner::before, .menu-inner::after {
+      content: '';
+      display: block;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--red), var(--gold), #2b8b78);
+      opacity: 0.88;
+    }
+    .menu-inner::after { margin-top: 2rem; }
+    .menu-kicker {
+      text-align: center;
+      color: var(--gold);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      font-size: 0.72rem;
+      margin-top: 2rem;
+    }
+    .menu-main-title {
+      text-align: center;
+      font-size: clamp(2.2rem, 5vw, 4.15rem);
+      color: #fff9ee;
+      line-height: 1.03;
+      margin: 0.65rem 0 0.75rem;
+      text-shadow: 0 18px 40px rgba(0,0,0,0.45);
+    }
+    .menu-main-title span { color: var(--gold); font-style: italic; }
+    .menu-intro {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 2.1rem;
+      color: rgba(232,223,208,0.74);
+      line-height: 1.75;
+    }
+    .menu-tabs { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+    .menu-tab {
+      border: 1px solid rgba(212,150,10,0.38);
+      background: rgba(255,255,255,0.045);
+      color: #f4ddaa;
+      padding: 0.85rem 1.35rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+      transition: transform 0.2s, background 0.2s, color 0.2s;
+    }
+    .menu-tab:hover { transform: translateY(-2px); background: rgba(212,150,10,0.12); }
+    .menu-tab.active { background: linear-gradient(135deg, var(--red), var(--red-dark)); color: #fff; border-color: rgba(255,255,255,0.16); }
+    .menu-page { display: none; }
+    .menu-page.active { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.05rem; align-items: start; }
+    .menu-section-card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.035)),
+        rgba(16,13,10,0.74);
+      border: 1px solid rgba(212,150,10,0.22);
+      border-radius: 18px;
+      padding: 1.15rem 1.15rem 0.65rem;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.24);
+      overflow: hidden;
+      position: relative;
+    }
+    .menu-section-card::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red), var(--gold), #2b8b78);
+      opacity: 0.9;
+    }
+    .menu-section-card h3 {
+      color: #f0c15d;
+      font-size: 1.25rem;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+    .menu-section-card h3.red { color: #ff8a77; }
+    .dish-row {
+      display: grid;
+      grid-template-columns: minmax(130px, 1.1fr) minmax(170px, 1.7fr) auto;
+      gap: 0.85rem;
+      padding: 0.68rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      align-items: start;
+    }
+    .dish-row:last-child { border-bottom: 0; }
+    .dish-name { font-weight: 800; color: #fff4df; }
+    .dish-desc { color: rgba(232,223,208,0.66); line-height: 1.45; font-size: 0.91rem; }
+    .dish-price {
+      font-weight: 900;
+      color: #ffd37a;
+      white-space: nowrap;
+      background: rgba(212,150,10,0.09);
+      border: 1px solid rgba(212,150,10,0.18);
+      padding: 0.22rem 0.45rem;
+      border-radius: 999px;
+    }
+    .menu-note {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, rgba(212,150,10,0.95), rgba(255,208,90,0.9));
+      border: 1px solid rgba(255,255,255,0.22);
+      color: #271407;
+      padding: 1rem 1.2rem;
+      border-radius: 16px;
+      text-align: center;
+      font-weight: 900;
+      margin: 0.1rem 0;
+      box-shadow: 0 14px 32px rgba(212,150,10,0.16);
+    }
+    .origin-note {
+      grid-column: 1 / -1;
+      font-size: 0.78rem;
+      color: rgba(232,223,208,0.62);
+      margin-top: 1.1rem;
+      line-height: 1.6;
+      text-align: center;
+    }
+    @media (max-width: 900px) {
+      .menu-page.active { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 700px) {
+      .menu-panel { border-radius: 18px; }
+      .dish-row { grid-template-columns: 1fr auto; gap: 0.4rem 0.8rem; }
+      .dish-desc { grid-column: 1 / -1; }
+      .menu-inner { padding-left: 1.3rem; padding-right: 1.3rem; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#hero" class="logo">Casa <span>Alegria</span></a>
+    <ul class="nav-links">
+      <li><a href="#menu">Speisekarte</a></li>
+      <li><a href="#about">Über uns</a></li>
+      <li><a href="#experience">Erlebnis</a></li>
+      <li><a href="#reservierung">Reservierung</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+    <a href="tel:+41448100960" class="nav-cta">📞 Jetzt anrufen</a>
+    <button class="hamburger" id="hamburger" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="close-btn" id="closeMenu">✕</button>
+    <button type="button" class="mobile-link menu-open-trigger" style="background:none;border:0;cursor:pointer">Speisekarte</button>
+    <a href="#about" class="mobile-link">Über uns</a>
+    <a href="#experience" class="mobile-link">Erlebnis</a>
+    <a href="#reservierung" class="mobile-link">Reservierung</a>
+    <a href="tel:+41448100960" class="mobile-link" style="color:var(--gold)">📞 +41 44 810 09 60</a>
+  </div>
+
+
+
+  <!-- SPEISEKARTE MODAL -->
+  <div class="menu-modal" id="fullMenuModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="menuModalTitle">
+    <div class="menu-panel">
+      <button class="menu-close" id="menuClose" aria-label="Speisekarte schliessen">×</button>
+      <div class="menu-inner">
+        <p class="menu-kicker">Casa Alegria Opfikon</p>
+        <h2 class="menu-main-title" id="menuModalTitle">Speisekarte <span>& Fiesta Flavours</span></h2>
+        <p class="menu-intro">Unsere digitale Speisekarte – modern, elegant und inspiriert von mexikanischen Farben. Preise in CHF, inklusive Mehrwertsteuer. Bei Allergien oder Unverträglichkeiten bitte unser Team informieren.</p>
+        <div class="menu-tabs" role="tablist" aria-label="Speisekarte Kategorien">
+          <button class="menu-tab active" data-menu-tab="abendkarte" role="tab" aria-selected="true">Abendkarte</button>
+          <button class="menu-tab" data-menu-tab="fiesta" role="tab" aria-selected="false">Alegria Fiesta Flavours</button>
+        </div>
+
+        <div class="menu-page active" id="abendkarte">
+          <div class="menu-section-card"><h3>🥣 Sopas · Suppen</h3>
+            <div class="dish-row"><div class="dish-name">Chicken Coconut Soup</div><div class="dish-desc">mit Poulet und Gemüse</div><div class="dish-price">Fr. 11.00</div></div>
+            <div class="dish-row"><div class="dish-name">Bouillon</div><div class="dish-desc">mit Ei oder Gemüse</div><div class="dish-price">Fr. 8.00</div></div>
+          </div>
+          <div class="menu-section-card"><h3>🥗 Ensaladas · Salate</h3>
+            <div class="dish-row"><div class="dish-name">Gemischter Salat</div><div class="dish-desc">Mixed salad</div><div class="dish-price">Fr. 10.00</div></div>
+            <div class="dish-row"><div class="dish-name">Grüner Salat</div><div class="dish-desc">mit Maiskörnern</div><div class="dish-price">Fr. 9.00</div></div>
+            <div class="dish-row"><div class="dish-name">Cäsar-Salat</div><div class="dish-desc">klein / gross – mit Parmesan, Speck und Croutons</div><div class="dish-price">Fr. 11.00 / 18.00</div></div>
+            <div class="dish-row"><div class="dish-name">Nüsslisalat</div><div class="dish-desc">mit Ei / mit Ei und Speck</div><div class="dish-price">Fr. 11.00 / 14.00</div></div>
+          </div>
+          <div class="menu-section-card"><h3>🫓 Entradas · Vorspeisen</h3>
+            <div class="dish-row"><div class="dish-name">Guacamole con Nachos</div><div class="dish-desc">serviert mit 3 verschiedenen Saucen</div><div class="dish-price">Fr. 11.00</div></div>
+            <div class="dish-row"><div class="dish-name">Chimichanga</div><div class="dish-desc">Tortillachips überbacken mit Cheddar-Käse</div><div class="dish-price">Fr. 13.00</div></div>
+            <div class="dish-row"><div class="dish-name">Papaasada con Guacamole</div><div class="dish-desc">Grillkartoffeln mit Guacamole</div><div class="dish-price">Fr. 12.00</div></div>
+            <div class="dish-row"><div class="dish-name">Quesadillas</div><div class="dish-desc">Weizentortillas gefüllt mit Cheddar-Käse</div><div class="dish-price">Fr. 9.00</div></div>
+            <div class="dish-row"><div class="dish-name">Jalapeños / Dedos de Mozzarella / Calamares</div><div class="dish-desc">klein / gross, serviert mit Salsa und Salat</div><div class="dish-price">Fr. 12.00 / 22.00</div></div>
+          </div>
+          <div class="menu-note">Haus-Drink “Margherita” – 0,5 lt. Fr. 28.50 · 1 lt. Fr. 49.50 · Glas 2 dl Fr. 14.50</div>
+          <div class="menu-section-card"><h3>🌮 Tacos</h3>
+            <div class="dish-row"><div class="dish-name">Taco con pollo</div><div class="dish-desc">knusprig frittierte Maistortillas mit Poulet, Reis, Salat, Guacamole, Salsa und Sauerrahm</div><div class="dish-price">Fr. 31.00</div></div>
+            <div class="dish-row"><div class="dish-name">Taco con res</div><div class="dish-desc">mit Rindfiletstreifen</div><div class="dish-price">Fr. 35.00</div></div>
+            <div class="dish-row"><div class="dish-name">Taco con verdura</div><div class="dish-desc">mit verschiedenen Gemüse</div><div class="dish-price">Fr. 28.00</div></div>
+          </div>
+          <div class="menu-section-card"><h3>🧀 Quesadillas</h3>
+            <div class="dish-row"><div class="dish-name">Quesadilla con pollo</div><div class="dish-desc">grosse Weizentortilla gefüllt mit Cheddar, Reis, Salat, Guacamole, Salsa, Sour Cream</div><div class="dish-price">Fr. 32.00</div></div>
+            <div class="dish-row"><div class="dish-name">Quesadilla con res</div><div class="dish-desc">mit Rindfiletstreifen</div><div class="dish-price">Fr. 36.00</div></div>
+            <div class="dish-row"><div class="dish-name">Quesadilla verdura</div><div class="dish-desc">mit Gemüse</div><div class="dish-price">Fr. 28.00</div></div>
+            <div class="dish-row"><div class="dish-name">Quesadilla con cordero</div><div class="dish-desc">mit Lamm</div><div class="dish-price">Fr. 32.00</div></div>
+          </div>
+          <div class="menu-section-card"><h3>🌶️ Enchilada</h3>
+            <div class="dish-row"><div class="dish-name">Enchilada con pollo</div><div class="dish-desc">gefüllt und mit Cheddar überbacken, serviert mit Reis und Salat</div><div class="dish-price">Fr. 32.00</div></div>
+            <div class="dish-row"><div class="dish-name">Enchilada con res</div><div class="dish-desc">mit Rindfiletstreifen</div><div class="dish-price">Fr. 36.00</div></div>
+            <div class="dish-row"><div class="dish-name">Enchilada con cordero</div><div class="dish-desc">mit Lamm</div><div class="dish-price">Fr. 32.00</div></div>
+            <div class="dish-row"><div class="dish-name">Enchilada Alegria</div><div class="dish-desc">mit Poulet und Rind</div><div class="dish-price">Fr. 36.00</div></div>
+          </div>
+          <div class="menu-section-card"><h3 class="red">🔥 Fajitas, Pinchos & Spezialitäten</h3>
+            <div class="dish-row"><div class="dish-name">Sabana con pollo / con res</div><div class="dish-desc">zarte Filets mit Cheddar-Käse überbacken, dazu Grillkartoffeln und Sauerrahm</div><div class="dish-price">Fr. 33.00 / 45.00</div></div>
+            <div class="dish-row"><div class="dish-name">Fajita con pollo</div><div class="dish-desc">weiche Weizentortillas mit Reis, Salat, Guacamole, Salsa und Sour Cream</div><div class="dish-price">Fr. 33.00</div></div>
+            <div class="dish-row"><div class="dish-name">Fajita alegria / con res</div><div class="dish-desc">mit Poulet und Rind / mit Rindfleisch</div><div class="dish-price">Fr. 38.00</div></div>
+            <div class="dish-row"><div class="dish-name">Fajita con cordero / camarones</div><div class="dish-desc">mit Lammhuftstreifen / mit Crevetten</div><div class="dish-price">Fr. 35.00</div></div>
+            <div class="dish-row"><div class="dish-name">Fajita con verdura</div><div class="dish-desc">mit verschiedenem Gemüse</div><div class="dish-price">Fr. 30.00</div></div>
+            <div class="dish-row"><div class="dish-name">Alegria Spiess</div><div class="dish-desc">Chef Special: Poulet und Rind mit Pommes frites und Salat</div><div class="dish-price">Fr. 42.00</div></div>
+          </div>
+          <div class="menu-section-card"><h3>🐟 Pescado & Especialidades</h3>
+            <div class="dish-row"><div class="dish-name">Fischplatte vom Grill</div><div class="dish-desc">mit Reis und Gemüse</div><div class="dish-price">Fr. 43.00</div></div>
+            <div class="dish-row"><div class="dish-name">Riesencrevetten vom Grill</div><div class="dish-desc">mit Knoblauch, Reis, Gemüse und Cocktailsauce</div><div class="dish-price">Fr. 43.00</div></div>
+            <div class="dish-row"><div class="dish-name">Platouno / Platodos / Plato tres</div><div class="dish-desc">Teller-Spezialitäten mit Tacos, Quesadilla, Reis, Salat, Salsa, Guacamole und Sour Cream</div><div class="dish-price">Fr. 29.00 / 37.00 / 42.00</div></div>
+          </div>
+        </div>
+
+        <div class="menu-page" id="fiesta">
+          <div class="menu-section-card"><h3 class="red">🎉 Alegria Fiesta Flavours</h3>
+            <div class="dish-row"><div class="dish-name">Indische Samosas</div><div class="dish-desc">gefüllt mit Gemüse, dazu Reis und Salat</div><div class="dish-price">Fr. 22.00</div></div>
+            <div class="dish-row"><div class="dish-name">Frittierte Pouletflügel (6 Stk.)</div><div class="dish-desc">serviert mit Pommes, Salat und Tartarsauce</div><div class="dish-price">Fr. 24.00</div></div>
+            <div class="dish-row"><div class="dish-name">Chilli con Carne</div><div class="dish-desc">serviert mit Tortilla-Chips und Hausreis</div><div class="dish-price">Fr. 26.00</div></div>
+            <div class="dish-row"><div class="dish-name">Burrito con Carne</div><div class="dish-desc">serviert mit Reis und Salat</div><div class="dish-price">Fr. 26.00</div></div>
+            <div class="dish-row"><div class="dish-name">Mexikanischer Hamburger</div><div class="dish-desc">200 g, mit Pommes und Salat</div><div class="dish-price">Fr. 24.00</div></div>
+            <div class="dish-row"><div class="dish-name">Pasta Chilli</div><div class="dish-desc">Teigwaren in Rahm mit Chilli und Brokkoli</div><div class="dish-price">Fr. 27.00</div></div>
+            <div class="dish-row"><div class="dish-name">Pasta Chilli mit Pouletgeschnetzeltem</div><div class="dish-desc">cremig, würzig und hausgemacht</div><div class="dish-price">Fr. 31.00</div></div>
+            <div class="dish-row"><div class="dish-name">Fitnessteller</div><div class="dish-desc">gegrilltes Pouletbrustfilet (CH) auf Blattsalat</div><div class="dish-price">Fr. 29.00</div></div>
+            <div class="dish-row"><div class="dish-name">Alegriasalat</div><div class="dish-desc">zartes Pouletgeschnetzeltes auf Caesar-Salat</div><div class="dish-price">Fr. 29.00</div></div>
+            <div class="dish-row"><div class="dish-name">Gegrilltes Pouletbrustfilet</div><div class="dish-desc">(CH) mit Kräuterbutter und Nudeln</div><div class="dish-price">Fr. 31.00</div></div>
+            <div class="dish-row"><div class="dish-name">Pouletgeschnetzeltes</div><div class="dish-desc">in Pilzrahmsauce, serviert mit Nudeln</div><div class="dish-price">Fr. 29.00</div></div>
+            <div class="dish-row"><div class="dish-name">Gemüse Curry</div><div class="dish-desc">mit Basmatireis</div><div class="dish-price">Fr. 26.00</div></div>
+            <div class="dish-row"><div class="dish-name">Poulet / Lamm / Rind Curry</div><div class="dish-desc">mit Basmatireis</div><div class="dish-price">Fr. 29.00 / 31.00 / 33.00</div></div>
+            <div class="dish-row"><div class="dish-name">Crevetten Curry</div><div class="dish-desc">mit Basmatireis</div><div class="dish-price">Fr. 29.00</div></div>
+            <div class="dish-row"><div class="dish-name">Gegrilltes Lammhuftfilet</div><div class="dish-desc">mit Kräuterbutter, Pommes und Salat</div><div class="dish-price">Fr. 36.00</div></div>
+            <div class="dish-row"><div class="dish-name">Rindsgeschnetzeltes</div><div class="dish-desc">in Pilzrahmsauce, dazu Nudeln</div><div class="dish-price">Fr. 38.00</div></div>
+            <div class="dish-row"><div class="dish-name">Rindsfiletmedaillons</div><div class="dish-desc">mit Nudeln und Gemüse: 2x100 g / 3x100 g / 5x100 g</div><div class="dish-price">Fr. 45.00 / 58.00 / 85.00</div></div>
+          </div>
+        </div>
+        <p class="origin-note"><strong>Fleischherkunft:</strong> Kalb: Schweiz · Lamm: Irland, Neuseeland · Poulet: Schweiz, Brasilien · Rind: Irland, Australien · Schwein: Schweiz.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-eyebrow">Mexikanisches Restaurant · Opfikon, Zürich</span>
+      <h1>Authentische Küche,<br /><em>unvergessliche Abende.</em></h1>
+      <p class="hero-sub">Frische Zutaten. Lebendige Aromen. Herzlicher Service — seit Jahren.</p>
+      <div class="hero-btns">
+        <a href="#reservierung" class="btn-primary">Tisch reservieren</a>
+        <button type="button" class="btn-outline menu-open-trigger">Speisekarte entdecken</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHTS BAR -->
+  <div id="highlights">
+    <div class="highlights-grid">
+      <div class="highlight-item"><span class="icon">⭐</span><strong>4.5</strong> Google Bewertung</div>
+      <div class="highlight-item"><span class="icon">🌮</span>Mexikanische Küche</div>
+      <div class="highlight-item"><span class="icon">🍹</span>Cocktails & Drinks</div>
+      <div class="highlight-item"><span class="icon">🌿</span>Vegane Optionen</div>
+      <div class="highlight-item"><span class="icon">🏡</span>Terrasse</div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-img reveal">
+        <img
+          src="https://images.unsplash.com/photo-1648437595587-e6a8b0cdf1f9?w=800&q=85"
+          alt="Mexikanische Spezialitäten"
+          loading="lazy"
+        />
+      </div>
+      <div class="about-text reveal">
+        <p class="section-label">Unsere Geschichte</p>
+        <h2 class="section-title">Willkommen im<br />Casa Alegria</h2>
+        <p>Seit Jahren begeistern wir unsere Gäste mit authentischer mexikanischer Küche — frisch zubereitet, mit Leidenschaft und den besten Zutaten. Jedes Gericht erzählt eine Geschichte aus Mexiko.</p>
+        <p>Unsere lebendige Atmosphäre mit bunten Farben und üppigen Pflanzen entführt Sie nach Mexiko — mitten in Opfikon. Ob ein schnelles Mittagessen oder ein entspannter Abend mit Freunden: bei uns fühlen Sie sich sofort willkommen.</p>
+        <div class="rating-badge">
+          <span class="stars">★★★★★</span>
+          <span>4.5 auf Google — über 800 Bewertungen</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id="menu">
+    <div class="menu-header reveal">
+      <p class="section-label">Was uns ausmacht</p>
+      <h2 class="section-title">Unsere Spezialitäten</h2>
+      <p class="section-sub">Von handgemachten Tacos bis zum perfekt gegrillten Carne Asada — alles frisch, alles mit Liebe.</p>
+    </div>
+    <div class="menu-grid reveal">
+      <div class="menu-card">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=700&q=80" alt="Tacos al Pastor" loading="lazy" />
+        <div class="menu-card-body">
+          <div class="menu-card-title">Tacos al Pastor</div>
+          <div class="menu-card-desc">Zart mariniertes Fleisch, frischer Koriander, Zwiebeln, Ananas</div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1595016111459-799a195e7452?w=700&q=80" alt="Guacamole Casera" loading="lazy" />
+        <div class="menu-card-body">
+          <div class="menu-card-title">Guacamole Casera</div>
+          <div class="menu-card-desc">Frisch zubereitet nach Hausrezept — serviert mit Tortilla-Chips</div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1534352956036-cd81e27dd615?w=700&q=80" alt="Enchiladas Verdes" loading="lazy" />
+        <div class="menu-card-body">
+          <div class="menu-card-title">Enchiladas Verdes</div>
+          <div class="menu-card-desc">Mit Hühnchen, grüner Salsa, Crème fraîche und Käse überbacken</div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1558030006-450675393462?w=700&q=80" alt="Carne Asada" loading="lazy" />
+        <div class="menu-card-body">
+          <div class="menu-card-title">Carne Asada</div>
+          <div class="menu-card-desc">Gegrilltes Rindfleisch mit mexikanischen Gewürzen und Beilagen</div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1523813301608-f54a198f6b5f?w=700&q=80" alt="Vegetarische Fajitas" loading="lazy" />
+        <div class="menu-card-body">
+          <div class="menu-card-title">Vegetarische Fajitas</div>
+          <div class="menu-card-desc">Gegrilltes Gemüse, Paprika, schwarze Bohnen, warme Tortilla</div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1694495275309-269e3ea6f21e?w=700&q=80" alt="Churros con Chocolate" loading="lazy" />
+        <div class="menu-card-body">
+          <div class="menu-card-title">Churros con Chocolate</div>
+          <div class="menu-card-desc">Knusprig frittiert, mit dunkler Schokoladensauce serviert</div>
+        </div>
+      </div>
+    </div>
+    <div class="menu-cta-wrap reveal">
+      <button type="button" class="btn-primary menu-open-trigger">Ganze Speisekarte ansehen</button>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div style="text-align:center" class="reveal">
+      <p class="section-label">Mehr als nur ein Abendessen</p>
+      <h2 class="section-title">Das Casa Alegria Erlebnis</h2>
+    </div>
+    <div class="exp-grid">
+      <div class="exp-item reveal">
+        <span class="exp-icon">🍹</span>
+        <h3>Cocktails & Drinks</h3>
+        <p>Von klassischen Margaritas bis zu hausgemachten Spezialitäten — unsere Bar macht jeden Abend besonders.</p>
+      </div>
+      <div class="exp-item reveal">
+        <span class="exp-icon">✨</span>
+        <h3>Authentisches Ambiente</h3>
+        <p>Mexikanische Farben, herzlicher Service und eine einzigartige Atmosphäre machen jeden Besuch besonders.</p>
+      </div>
+      <div class="exp-item reveal">
+        <span class="exp-icon">🌿</span>
+        <h3>Terrasse & Garten</h3>
+        <p>Geniessen Sie Ihr Essen im Freien — unsere Terrasse lädt zum Verweilen ein, bei jedem Wetter gemütlich.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESERVIERUNG -->
+  <section id="reservierung">
+    <div style="max-width:600px; margin:0 auto">
+      <p class="section-label reveal">Reservierung</p>
+      <h2 class="section-title reveal">Reservieren Sie<br />Ihren Tisch</h2>
+      <p class="section-sub reveal">Reservierungen nehmen wir ausschliesslich telefonisch entgegen. Wir freuen uns auf Ihren Anruf.</p>
+      <div class="call-block reveal" style="margin-top:2.5rem">
+        <a href="tel:+41448100960" class="call-number">
+          <span class="phone-icon">📞</span>
+          +41 44 810 09 60
+        </a>
+        <p class="call-note">Mo bis So, 11:00 – 23:00 Uhr</p>
+        <p class="call-group-note">Für Gruppen ab 8 Personen bitten wir um frühzeitige Reservierung.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews">
+    <div class="reviews-header reveal">
+      <p class="section-label">Gästestimmen</p>
+      <h2 class="section-title">Was unsere Gäste sagen</h2>
+      <div class="google-badge">
+        <span class="g-stars">★★★★★</span>
+        <span>4.5 — über 800 Bewertungen auf Google</span>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">„Ein Abend im Casa Alegria ist immer ein Erlebnis. Das Essen ist fantastisch, das Personal herzlich und die Atmosphäre einfach besonders."</p>
+        <div class="review-author">Jasmin D.</div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">„Über 15 Jahre Stammgast — und das aus gutem Grund. Qualität, Service und Preis-Leistung stimmen einfach immer. Man fühlt sich sofort zu Hause."</p>
+        <div class="review-author">Marco B.</div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">„Die besten Tacos in der Region. Klare Empfehlung für alle, die authentische mexikanische Küche suchen — super schneller Service und faire Preise!"</p>
+        <div class="review-author">Lena K.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="kontakt">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#hero" class="logo">Casa <span style="color:var(--gold)">Alegria</span></a>
+        <p>Authentisch. Herzlich. Mexikanisch.<br />Seit Jahren Ihr Lieblingsrestaurant in Opfikon.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Adresse</h4>
+        <ul>
+          <li><span>Schaffhauserstrasse 116</span></li>
+          <li><span>8152 Opfikon, Zürich</span></li>
+          <li><a href="https://maps.google.com/?q=Casa+Alegria+Opfikon" target="_blank" rel="noopener">→ Google Maps</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Öffnungszeiten</h4>
+        <ul class="footer-hours">
+          <li><span class="day">Mo – Fr</span><span class="time">11:30–14:00 & 18:00–23:00</span></li>
+          <li style="margin-top:0.4rem"><span class="day">Sa – So</span><span class="time">18:00–23:00</span></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="tel:+41448100960">+41 44 810 09 60</a></li>
+          <li style="margin-top:0.8rem"><a href="#menu">Speisekarte</a></li>
+          <li><a href="#reservierung">Reservierung</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Casa Alegria, Opfikon. Alle Rechte vorbehalten.</p>
+      <p class="design-credit">Designed by <span>VelaroStudio</span></p>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll effect
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+    closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+
+
+    // Full menu modal
+    const fullMenuModal = document.getElementById('fullMenuModal');
+    const menuClose = document.getElementById('menuClose');
+    const menuOpenTriggers = document.querySelectorAll('.menu-open-trigger');
+    const menuTabs = document.querySelectorAll('.menu-tab');
+    const menuPages = document.querySelectorAll('.menu-page');
+
+    function openFullMenu() {
+      fullMenuModal.classList.add('open');
+      fullMenuModal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('menu-open-body');
+      mobileMenu.classList.remove('open');
+    }
+    function closeFullMenu() {
+      fullMenuModal.classList.remove('open');
+      fullMenuModal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('menu-open-body');
+    }
+    menuOpenTriggers.forEach(btn => btn.addEventListener('click', openFullMenu));
+    menuClose.addEventListener('click', closeFullMenu);
+    fullMenuModal.addEventListener('click', (e) => {
+      if (e.target === fullMenuModal) closeFullMenu();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && fullMenuModal.classList.contains('open')) closeFullMenu();
+    });
+    menuTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.menuTab;
+        menuTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        menuPages.forEach(page => page.classList.toggle('active', page.id === target));
+      });
+    });
+
+  </script>
+</body>
+</html>
